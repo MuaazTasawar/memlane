@@ -13,7 +13,7 @@
 //! Multiple processes can open the same named region and get a pointer to the
 //! same physical memory — no TCP, no copy, no kernel involvement on reads.
 
-use std::sync::atomic::{AtomicU64, AtomicU32, Ordering};
+use std::sync::atomic::{AtomicU32, AtomicU64, Ordering};
 
 use crate::slot::{Slot, SLOT_SIZE};
 
@@ -112,7 +112,9 @@ impl Drop for Arena {
 
         #[cfg(windows)]
         unsafe {
-            windows_sys::Win32::System::Memory::UnmapViewOfFile(self.ptr as *const _);
+            use windows_sys::Win32::System::Memory::{UnmapViewOfFile, MEMORY_MAPPED_VIEW_ADDRESS};
+            let addr = MEMORY_MAPPED_VIEW_ADDRESS { Value: self.ptr as *mut _ };
+            UnmapViewOfFile(addr);
             windows_sys::Win32::Foundation::CloseHandle(self.handle);
         }
     }

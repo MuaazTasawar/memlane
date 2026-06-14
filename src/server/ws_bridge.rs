@@ -27,6 +27,7 @@
 
 use std::collections::HashMap;
 use std::sync::Arc;
+use crate::MemLaneClient;
 use std::time::{Duration, Instant};
 
 use futures_util::{SinkExt, StreamExt};
