@@ -1,0 +1,29 @@
+# Rust build artifacts
+/target/
+Cargo.lock
+
+# Benchmark results
+/benches/results/
+criterion/
+
+# Shared memory artifacts (Linux/macOS)
+/dev/shm/memlane*
+
+# Node / dashboard
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local

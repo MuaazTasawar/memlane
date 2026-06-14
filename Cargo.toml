@@ -1,0 +1,43 @@
+[package]
+name = "memlane"
+version = "0.1.0"
+edition = "2021"
+description = "Zero-TCP shared-memory cache engine — faster than Redis on localhost"
+license = "MIT"
+
+[lib]
+name = "memlane"
+crate-type = ["cdylib", "rlib"]
+
+[[bench]]
+name = "throughput"
+harness = false
+
+[[example]]
+name = "basic_usage"
+
+[dependencies]
+libc = "0.2"
+tokio = { version = "1", features = ["full"] }
+tokio-tungstenite = "0.21"
+futures-util = "0.3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+bytes = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+redis = "0.24"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.bench]
+opt-level = 3
+lto = true
